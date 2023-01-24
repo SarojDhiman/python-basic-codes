@@ -1,0 +1,44 @@
+Python Variable Names & Operators
+
+Python Data Types & Numeric Types
+
+Python Precedence and Associativity
+
+Python Bitwise & Boolean
+
+Python Formatting & Decorators
+
+Python While and For Loops
+
+Python Strings
+
+Python Lists
+
+Python List Comprehension
+
+Python Tuples
+python syllabous
+
+Python Sets
+
+Python Dictionary
+
+Python Built-in Functions
+
+Python Functions
+
+Python Argument Passing, Variables and Recursion
+
+Python Mapping Functions
+
+Python Modules
+
+Python Regular Expressions
+
+Python Files
+
+Python Classes and Objects
+
+Python OOPs
+
+Python Exception Handling

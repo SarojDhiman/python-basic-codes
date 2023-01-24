@@ -1,0 +1,826 @@
+Lab - Working with Database in Python Programming       NAME:SAROJ DHIMAN
+
+1. Create the following tables:
+Table name: CLIENT_MASTER
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 38
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use first_DB;
+Database changed
+mysql> create database third_DB;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use third_DB;
+Database changed
+
+
+mysql> USE THIRD_DB;
+Database changed
+mysql> create table CLIENT_MASTER(CLIENT_NO varchar(6),primary key(CLIENT_MASTER),NAME varchar(20) NOT NULL,CITY varchar(15),PINCODE varchar(8),STATE varchar(15),BALDUE INTEGER,CHECK(CLIENT_NO LIKE 'C%'));
+ERROR 1072 (42000): Key column 'CLIENT_MASTER' doesn't exist in table
+mysql> create table CLIENT_MASTER(CLIENT_NO varchar(6) primary key,NAME varchar(20) NOT NULL,CITY varchar(15),PINCODE varchar(8),STATE varchar(15),BALDUE INTEGER,CHECK(CLIENT_NO LIKE 'C%'));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from client_master;
+Empty set (0.01 sec)
+
+mysql> describe client_master;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| CLIENT_NO | varchar(6)  | NO   | PRI | NULL    |       |
+| NAME      | varchar(20) | NO   |     | NULL    |       |
+| CITY      | varchar(15) | YES  |     | NULL    |       |
+| PINCODE   | varchar(8)  | YES  |     | NULL    |       |
+| STATE     | varchar(15) | YES  |     | NULL    |       |
+| BALDUE    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> create table PRODUCT_MASTER(PRODUCTNO varchar(6) primary key,DESCRIPTION varchar(15) NOT NULL,PROFITPERCENT integer NOT NULL,UNITMEASURE varchar()NOT NULL,QTYONHAND INTEGER NOT NULL,REORDERLVL INTEGER NOT NULL,SELLPRICE INTEGER NOT NULL,COSTPRICE INTEGER NOT NULL,CHECK(PRODUCTNO LIKE 'P%'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')NOT NULL,QTYONHAND INTEGER NOT NULL,REORDERLVL INTEGER NOT NULL,SELLPRICE INTEG' at line 1
+mysql> create table PRODUCT_MASTER(PRODUCTNO varchar(6) primary key,DESCRIPTION varchar(15) NOT NULL,PROFITPERCENT integer NOT NULL,UNITMEASURE varchar(10) NOT NULL,QTYONHAND integer NOT NULL,REORDERLVL integer NOT NULL,SELLPRICE integer NOT NULL,COSTPRICE integer NOT NULL,CHECK(PRODUCTNO LIKE 'P%'));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> describe product_master;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| PRODUCTNO     | varchar(6)  | NO   | PRI | NULL    |       |
+| DESCRIPTION   | varchar(15) | NO   |     | NULL    |       |
+| PROFITPERCENT | int         | NO   |     | NULL    |       |
+| UNITMEASURE   | varchar(10) | NO   |     | NULL    |       |
+| QTYONHAND     | int         | NO   |     | NULL    |       |
+| REORDERLVL    | int         | NO   |     | NULL    |       |
+| SELLPRICE     | int         | NO   |     | NULL    |       |
+| COSTPRICE     | int         | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> create table SALESMAN_MASTER(SALESMANNO varchar(6) primary key,SALESMANNAME varchar(20) NOT NULL,ADDRESS1 varchar(30) NOT NULL, ADDRESS2 varchar(30),CITY varchar(15),PINCODE varchar(8),STATE varchar(15),
+    -> SALAMT integer NOT NULL,TGTTOGET number(6,2) NOT NULL,YTDSALES NUMBER(6,2) NOT NULL,REMARKS varchar(60),CHECK(SALESMANNO LIKE 'S%'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'number(6,2) NOT NULL,YTDSALES NUMBER(6,2) NOT NULL,REMARKS varchar(60),CHECK(SAL' at line 2
+mysql> create table SALESMAN_MASTER(SALESMANNO varchar(6) primary key,SALESMANNAME varchar(20) NOT NULL,ADDRESS1 varchar(30) NOT NULL, ADDRESS2 varchar(30),CITY varchar(15),PINCODE varchar(8),STATE varchar(15),
+    -> SALAMT integer NOT NULL,TGTTOGET INTEGER NOT NULL,YTDSALES INTEGER NOT NULL,REMARKS varchar(60),CHECK(SALESMANNO LIKE 'S%'));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC SALESMAN_MASTER;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| SALESMANNO   | varchar(6)  | NO   | PRI | NULL    |       |
+| SALESMANNAME | varchar(20) | NO   |     | NULL    |       |
+| ADDRESS1     | varchar(30) | NO   |     | NULL    |       |
+| ADDRESS2     | varchar(30) | YES  |     | NULL    |       |
+| CITY         | varchar(15) | YES  |     | NULL    |       |
+| PINCODE      | varchar(8)  | YES  |     | NULL    |       |
+| STATE        | varchar(15) | YES  |     | NULL    |       |
+| SALAMT       | int         | NO   |     | NULL    |       |
+| TGTTOGET     | int         | NO   |     | NULL    |       |
+| YTDSALES     | int         | NO   |     | NULL    |       |
+| REMARKS      | varchar(60) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> CREATE TABLE SALES_ORDER(ORDERNO varchar(6) primary key ,CLIENT_NO varchar(6),ORDERDATE Date NOT NULL,DELYADDR varchar(25),SALESMANNO varchar(6),DELYTYPE char(1),BILLYN char(1),DELYDATE Date,
+    -> ORDERSTATUS varchar(10),CHECK(ORDERNO LIKE 'O%'),foreign key(CLIENT_NO) reference client_master(CLIENT_NO));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference client_master(CLIENT_NO))' at line 2
+mysql> CREATE TABLE SALES_ORDER(ORDERNO varchar(6) primary key ,CLIENT_NO varchar(6),ORDERDATE Date NOT NULL,DELYADDR varchar(25),SALESMANNO varchar(6),DELYTYPE char(1),BILLYN char(1),DELYDATE Date,
+
+mysql> CREATE TABLE SALES_ORDER(ORDERNO varchar(6) primary key ,CLIENT_NO varchar(6),ORDERDATE Date NOT NULL,DELYADDR varchar(25),SALESMANNO varchar(6),DELYTYPE char(1),BILLYN char(1),DELYDATE Date,
+    -> ORDERSTATUS varchar(10),CHECK(ORDERNO LIKE 'O%'),FOREIGN KEY (CLIENT_NO) REFERENCES client_master(CLIENT_NO));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc sales_order;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6)  | NO   | PRI | NULL    |       |
+| CLIENT_NO   | varchar(6)  | YES  | MUL | NULL    |       |
+| ORDERDATE   | date        | NO   |     | NULL    |       |
+| DELYADDR    | varchar(25) | YES  |     | NULL    |       |
+| SALESMANNO  | varchar(6)  | YES  |     | NULL    |       |
+| DELYTYPE    | char(1)     | YES  |     | NULL    |       |
+| BILLYN      | char(1)     | YES  |     | NULL    |       |
+| DELYDATE    | date        | YES  |     | NULL    |       |
+| ORDERSTATUS | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table sales_order
+    -> ADD FOREIGN KEY (SALESMANNO) REFERENCES Salesman_Master(SALESMANNO);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC SALES_ORDER;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6)  | NO   | PRI | NULL    |       |
+| CLIENT_NO   | varchar(6)  | YES  | MUL | NULL    |       |
+| ORDERDATE   | date        | NO   |     | NULL    |       |
+| DELYADDR    | varchar(25) | YES  |     | NULL    |       |
+| SALESMANNO  | varchar(6)  | YES  | MUL | NULL    |       |
+| DELYTYPE    | char(1)     | YES  |     | NULL    |       |
+| BILLYN      | char(1)     | YES  |     | NULL    |       |
+| DELYDATE    | date        | YES  |     | NULL    |       |
+| ORDERSTATUS | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> CREATE TABLE SALES_ORDER_DETAILS(ORDERNO varchar(6),PRODUCTNO varchar(6),QTYORDERED integer,QTYDISP integer,PRODUCTRATE integer,FOREIFN KEY(ORDERNO) REFERENCE Sales_Order(ORDERNO));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'KEY(ORDERNO) REFERENCE Sales_Order(ORDERNO))' at line 1
+mysql> CREATE TABLE SALES_ORDER_DETAILS(ORDERNO varchar(6),PRODUCTNO varchar(6),QTYORDERED integer,QTYDISP integer,PRODUCTRATE integer,FOREIGN KEY(ORDERNO) REFERENCE Sales_Order(ORDERNO));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCE Sales_Order(ORDERNO))' at line 1
+mysql> CREATE TABLE SALES_ORDER_DETAILS(ORDERNO varchar(6),PRODUCTNO varchar(6),QTYORDERED integer,QTYDISP integer,PRODUCTRATE integer,FOREIGN KEY(ORDERNO) REFERENCES Sales_Order(ORDERNO));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC SALES_ORDER_DETALS;
+ERROR 1146 (42S02): Table 'third_db.sales_order_detals' doesn't exist
+mysql> DESC SALES_ORDER_DETAILS;
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6) | YES  | MUL | NULL    |       |
+| PRODUCTNO   | varchar(6) | YES  |     | NULL    |       |
+| QTYORDERED  | int        | YES  |     | NULL    |       |
+| QTYDISP     | int        | YES  |     | NULL    |       |
+| PRODUCTRATE | int        | YES  |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE SALES_ORDER_DETAILS
+    -> ADD FOREIGN KEY (ProductNo) REFERENCES Product_Master(ProductNo);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC SALES_PRDER DETAILS;
+ERROR 1146 (42S02): Table 'third_db.sales_prder' doesn't exist
+mysql> DESCRIBE SALES_ORDER_DETAILS;
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6) | YES  | MUL | NULL    |       |
+| PRODUCTNO   | varchar(6) | YES  | MUL | NULL    |       |
+| QTYORDERED  | int        | YES  |     | NULL    |       |
+| QTYDISP     | int        | YES  |     | NULL    |       |
+| PRODUCTRATE | int        | YES  |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> describe CLIENT_MASTER;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| CLIENT_NO | varchar(6)  | NO   | PRI | NULL    |       |
+| NAME      | varchar(20) | NO   |     | NULL    |       |
+| CITY      | varchar(15) | YES  |     | NULL    |       |
+| PINCODE   | varchar(8)  | YES  |     | NULL    |       |
+| STATE     | varchar(15) | YES  |     | NULL    |       |
+| BALDUE    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> describe PRODUCT_MASTER;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| PRODUCTNO     | varchar(6)  | NO   | PRI | NULL    |       |
+| DESCRIPTION   | varchar(15) | NO   |     | NULL    |       |
+| PROFITPERCENT | int         | NO   |     | NULL    |       |
+| UNITMEASURE   | varchar(10) | NO   |     | NULL    |       |
+| QTYONHAND     | int         | NO   |     | NULL    |       |
+| REORDERLVL    | int         | NO   |     | NULL    |       |
+| SELLPRICE     | int         | NO   |     | NULL    |       |
+| COSTPRICE     | int         | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> describe salesman_master;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| SALESMANNO   | varchar(6)  | NO   | PRI | NULL    |       |
+| SALESMANNAME | varchar(20) | NO   |     | NULL    |       |
+| ADDRESS1     | varchar(30) | NO   |     | NULL    |       |
+| ADDRESS2     | varchar(30) | YES  |     | NULL    |       |
+| CITY         | varchar(15) | YES  |     | NULL    |       |
+| PINCODE      | varchar(8)  | YES  |     | NULL    |       |
+| STATE        | varchar(15) | YES  |     | NULL    |       |
+| SALAMT       | int         | NO   |     | NULL    |       |
+| TGTTOGET     | int         | NO   |     | NULL    |       |
+| YTDSALES     | int         | NO   |     | NULL    |       |
+| REMARKS      | varchar(60) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> desc sales_order;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6)  | NO   | PRI | NULL    |       |
+| CLIENT_NO   | varchar(6)  | YES  | MUL | NULL    |       |
+| ORDERDATE   | date        | NO   |     | NULL    |       |
+| DELYADDR    | varchar(25) | YES  |     | NULL    |       |
+| SALESMANNO  | varchar(6)  | YES  | MUL | NULL    |       |
+| DELYTYPE    | char(1)     | YES  |     | NULL    |       |
+| BILLYN      | char(1)     | YES  |     | NULL    |       |
+| DELYDATE    | date        | YES  |     | NULL    |       |
+| ORDERSTATUS | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> describe sales_order_details;
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6) | YES  | MUL | NULL    |       |
+| PRODUCTNO   | varchar(6) | YES  | MUL | NULL    |       |
+| QTYORDERED  | int        | YES  |     | NULL    |       |
+| QTYDISP     | int        | YES  |     | NULL    |       |
+| PRODUCTRATE | int        | YES  |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+__________________________________________________________________________________________________________________
+
+2. Insert the following data into their respective tables:
+
+ANSWER: 
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> describe client_master;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| CLIENT_NO | varchar(6)  | NO   | PRI | NULL    |       |
+| NAME      | varchar(20) | NO   |     | NULL    |       |
+| CITY      | varchar(15) | YES  |     | NULL    |       |
+| PINCODE   | varchar(8)  | YES  |     | NULL    |       |
+| STATE     | varchar(15) | YES  |     | NULL    |       |
+| BALDUE    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> insert into client_master VALUES('C00001','Ivan Bayross','Mumbai','400054','Maharastra',15000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into client_master VALUES('C00003','Chhaya Bankar','Mumbai','400057','Maharastra',5000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into client_master VALUES('C00004','Ashwani Joshi','Banglore','560001','karnatka',0);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master VALUES('C00005','Hansal Colaco','Mumbai','400060','Maharastra',2000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master VALUES('C00006','Deepak sharma','Mangalore','560050','karnatka',0);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from client_master;
++-----------+---------------+-----------+---------+------------+--------+
+| CLIENT_NO | NAME          | CITY      | PINCODE | STATE      | BALDUE |
++-----------+---------------+-----------+---------+------------+--------+
+| C00001    | Ivan Bayross  | Mumbai    | 400054  | Maharastra |  15000 |
+| C00003    | Chhaya Bankar | Mumbai    | 400057  | Maharastra |   5000 |
+| C00004    | Ashwani Joshi | Banglore  | 560001  | karnatka   |      0 |
+| C00005    | Hansal Colaco | Mumbai    | 400060  | Maharastra |   2000 |
+| C00006    | Deepak sharma | Mangalore | 560050  | karnatka   |      0 |
++-----------+---------------+-----------+---------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> desc product_master;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| PRODUCTNO     | varchar(6)  | NO   | PRI | NULL    |       |
+| DESCRIPTION   | varchar(15) | NO   |     | NULL    |       |
+| PROFITPERCENT | int         | NO   |     | NULL    |       |
+| UNITMEASURE   | varchar(10) | NO   |     | NULL    |       |
+| QTYONHAND     | int         | NO   |     | NULL    |       |
+| REORDERLVL    | int         | NO   |     | NULL    |       |
+| SELLPRICE     | int         | NO   |     | NULL    |       |
+| COSTPRICE     | int         | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into product_master VALUES('P00001','T-Shirt',5,'piece',200,50,350,250);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into product_master VALUES('P03453','Shirt',6,'piece',150,50,500,350);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product_master VALUES('P06734','Cotten Jeans',5,'piece',100,20,600,450);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product_master VALUES('P07865','Jeans',5,'piece',100,20,750,500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product_master VALUES('P07868','Trosurs',2,'piece',150,50,850,550);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product_master VALUES('P07885','Pull Overs',3,'piece',80,30,700,450);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product_master VALUES('P07965','Denim',4,'piece',100,40,350,250);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product_master VALUES('P07975','Lycra Tops',5,'piece',70,30,300,175);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product_master VALUES('P08865','Skirt',5,'piece',75,30,450,300);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from product_master;
++-----------+--------------+---------------+-------------+-----------+------------+-----------+-----------+
+| PRODUCTNO | DESCRIPTION  | PROFITPERCENT | UNITMEASURE | QTYONHAND | REORDERLVL | SELLPRICE | COSTPRICE |
++-----------+--------------+---------------+-------------+-----------+------------+-----------+-----------+
+| P00001    | T-Shirt      |             5 | piece       |       200 |         50 |       350 |       250 |
+| P03453    | Shirt        |             6 | piece       |       150 |         50 |       500 |       350 |
+| P06734    | Cotten Jeans |             5 | piece       |       100 |         20 |       600 |       450 |
+| P07865    | Jeans        |             5 | piece       |       100 |         20 |       750 |       500 |
+| P07868    | Trosurs      |             2 | piece       |       150 |         50 |       850 |       550 |
+| P07885    | Pull Overs   |             3 | piece       |        80 |         30 |       700 |       450 |
+| P07965    | Denim        |             4 | piece       |       100 |         40 |       350 |       250 |
+| P07975    | Lycra Tops   |             5 | piece       |        70 |         30 |       300 |       175 |
+| P08865    | Skirt        |             5 | piece       |        75 |         30 |       450 |       300 |
++-----------+--------------+---------------+-------------+-----------+------------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> describe salesman_master;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| SALESMANNO   | varchar(6)  | NO   | PRI | NULL    |       |
+| SALESMANNAME | varchar(20) | NO   |     | NULL    |       |
+| ADDRESS1     | varchar(30) | NO   |     | NULL    |       |
+| ADDRESS2     | varchar(30) | YES  |     | NULL    |       |
+| CITY         | varchar(15) | YES  |     | NULL    |       |
+| PINCODE      | varchar(8)  | YES  |     | NULL    |       |
+| STATE        | varchar(15) | YES  |     | NULL    |       |
+| SALAMT       | int         | NO   |     | NULL    |       |
+| TGTTOGET     | int         | NO   |     | NULL    |       |
+| YTDSALES     | int         | NO   |     | NULL    |       |
+| REMARKS      | varchar(60) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> insert into salesman_master('S00001','Aman','A/14','Worli','Mumbai','400002','Maharastra',3000,100,50,'Good');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''S00001','Aman','A/14','Worli','Mumbai','400002','Maharastra',3000,100,50,'Good'' at line 1
+mysql> insert into salesman_master VALUES('S00001','Aman','A/14','Worli','Mumbai','400002','Maharastra',3000,100,50,'Good');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman_master VALUES('S00002','Onkar','65','Nariman','Mumbai','400001','Maharastra',3000,200,100,'Good');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into salesman_master VALUES('S00003','Raj','P-7','Bandra','Mumbai','400032','Maharastra',3000,200,100,'Good');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into salesman_master VALUES('S00004','Ashish','A/5','Juhu','Bombay','400044','Maharastra',3500,200,150,'Good');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> describe salesman_master;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| SALESMANNO   | varchar(6)  | NO   | PRI | NULL    |       |
+| SALESMANNAME | varchar(20) | NO   |     | NULL    |       |
+| ADDRESS1     | varchar(30) | NO   |     | NULL    |       |
+| ADDRESS2     | varchar(30) | YES  |     | NULL    |       |
+| CITY         | varchar(15) | YES  |     | NULL    |       |
+| PINCODE      | varchar(8)  | YES  |     | NULL    |       |
+| STATE        | varchar(15) | YES  |     | NULL    |       |
+| SALAMT       | int         | NO   |     | NULL    |       |
+| TGTTOGET     | int         | NO   |     | NULL    |       |
+| YTDSALES     | int         | NO   |     | NULL    |       |
+| REMARKS      | varchar(60) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> select * from salesman_master;
++------------+--------------+----------+----------+--------+---------+------------+--------+----------+----------+---------+
+| SALESMANNO | SALESMANNAME | ADDRESS1 | ADDRESS2 | CITY   | PINCODE | STATE      | SALAMT | TGTTOGET | YTDSALES | REMARKS |
++------------+--------------+----------+----------+--------+---------+------------+--------+----------+----------+---------+
+| S00001     | Aman         | A/14     | Worli    | Mumbai | 400002  | Maharastra |   3000 |      100 |       50 | Good    |
+| S00002     | Onkar        | 65       | Nariman  | Mumbai | 400001  | Maharastra |   3000 |      200 |      100 | Good    |
+| S00003     | Raj          | P-7      | Bandra   | Mumbai | 400032  | Maharastra |   3000 |      200 |      100 | Good    |
+| S00004     | Ashish       | A/5      | Juhu     | Bombay | 400044  | Maharastra |   3500 |      200 |      150 | Good    |
++------------+--------------+----------+----------+--------+---------+------------+--------+----------+----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> describe sales_order;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6)  | NO   | PRI | NULL    |       |
+| CLIENT_NO   | varchar(6)  | YES  | MUL | NULL    |       |
+| ORDERDATE   | date        | NO   |     | NULL    |       |
+| DELYADDR    | varchar(25) | YES  |     | NULL    |       |
+| SALESMANNO  | varchar(6)  | YES  | MUL | NULL    |       |
+| DELYTYPE    | char(1)     | YES  |     | NULL    |       |
+| BILLYN      | char(1)     | YES  |     | NULL    |       |
+| DELYDATE    | date        | YES  |     | NULL    |       |
+| ORDERSTATUS | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> insert into sales_order VALUES('019003','C00001',03-APR-02,'Delhi','S00001','F','Y',07-APR-02,'Fullfield');
+ERROR 1054 (42S22): Unknown column 'APR' in 'field list'
+mysql> insert into sales_order VALUES('019003','C00001','03-APR-02','Delhi','S00001','F','Y','07-APR-02','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '03-APR-02' for column 'ORDERDATE' at row 1
+mysql> insert into sales_order VALUES('019003','C00001','03APR02','Delhi','S00001','F','Y','07APR02','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '03APR02' for column 'ORDERDATE' at row 1
+mysql> insert into sales_order VALUES('019003','C00001','03APR02','Delhi',S00001,'F','Y',07APR02,'Fullfield');
+ERROR 1054 (42S22): Unknown column 'S00001' in 'field list'
+mysql> insert into sales_order VALUES('019003','C00001','03APR02','Delhi','S00001','F','Y',07APR02,'Fullfield');
+ERROR 1054 (42S22): Unknown column '07APR02' in 'field list'
+mysql> insert into sales_order VALUES('019003','C00001','03APR02','Delhi','S00001','F','Y','07APR02','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '03APR02' for column 'ORDERDATE' at row 1
+mysql> insert into sales_order VALUES('019003','C00001','03-APR-02','Delhi','S00001','F','Y','07-APR-02','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '03-APR-02' for column 'ORDERDATE' at row 1
+mysql> insert into sales_order VALUES('019003','C00001','2003-APR-02','Delhi','S00001','F','Y','2007-APR-02','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '2003-APR-02' for column 'ORDERDATE' at row 1
+mysql> insert into sales_order VALUES('019003','C00001','2003-APR-02','Delhi','S00001','F','Y','2007-APR-02','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '2003-APR-02' for column 'ORDERDATE' at row 1
+mysql> insert into sales_order VALUES('019003','C00001',format[2003-APR-02],'Delhi','S00001','F','Y',format[2007-APR-02],'Fullfield');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[2003-APR-02],'Delhi','S00001','F','Y',format[2007-APR-02],'Fullfield')' at line 1
+mysql> insert into sales_order VALUES('019003','C00001',format[03-APR-02],'Delhi','S00001','F','Y',format[07-APR-02],'Fullfield');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[03-APR-02],'Delhi','S00001','F','Y',format[07-APR-02],'Fullfield')' at line 1
+mysql> insert into sales_order VALUES('019003','C00001',format['03-APR-02'],'Delhi','S00001','F','Y',format['07-APR-02'],'Fullfield');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '['03-APR-02'],'Delhi','S00001','F','Y',format['07-APR-02'],'Fullfield')' at line 1
+mysql> insert into sales_order VALUES('019003','C00001','03-04-2002','Delhi','S00001','F','Y','07-04-2002','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '03-04-2002' for column 'ORDERDATE' at row 1
+mysql> insert into sales_order VALUES('019003','C00001','03-APR-02','Delhi','S00001','F','Y','07-APR-02','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '03-APR-02' for column 'ORDERDATE' at row 1
+mysql>
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into sales_order VALUES('019003','C00001','2003-04-04','Delhi','S00001','F','Y','2007-04-02','Fullfield');
+ERROR 3819 (HY000): Check constraint 'sales_order_chk_1' is violated.
+mysql> insert into sales_order VALUES('019003','C00001','2003-04-04','Delhi','S00001','F','Y','2007-04-02','Fullfield');
+ERROR 3819 (HY000): Check constraint 'sales_order_chk_1' is violated.
+mysql> describe sales_order;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6)  | NO   | PRI | NULL    |       |
+| CLIENT_NO   | varchar(6)  | YES  | MUL | NULL    |       |
+| ORDERDATE   | date        | NO   |     | NULL    |       |
+| DELYADDR    | varchar(25) | YES  |     | NULL    |       |
+| SALESMANNO  | varchar(6)  | YES  | MUL | NULL    |       |
+| DELYTYPE    | char(1)     | YES  |     | NULL    |       |
+| BILLYN      | char(1)     | YES  |     | NULL    |       |
+| DELYDATE    | date        | YES  |     | NULL    |       |
+| ORDERSTATUS | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> insert into sales_order VALUES('019003','C00001','2003-04-04','Delhi','S00001','F','Y','2007-04-02','Fullfield');
+ERROR 3819 (HY000): Check constraint 'sales_order_chk_1' is violated.
+mysql> insert into sales_order VALUES('019003','C00001','03-APR-02','Delhi','S00001','F','Y','07-APR-02','Fullfield');
+ERROR 1292 (22007): Incorrect date value: '03-APR-02' for column 'ORDERDATE' at row 1
+mysql> insert into sales_order VALUES('019003','C00001','2003-04-02','Delhi','S00001','F','Y','2007-04-02','Fullfield');
+ERROR 3819 (HY000): Check constraint 'sales_order_chk_1' is violated.
+mysql> insert into sales_order VALUES('O19003','C00001','2003-04-02','Delhi','S00001','F','Y','2007-04-02','Fullfield');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into sales_order VALUES('O19003','C00004','2003-04-20','Delhi','S00001','F','Y','2007-05-02','Cancelled');
+ERROR 1062 (23000): Duplicate entry 'O19003' for key 'sales_order.PRIMARY'
+mysql> insert into sales_order VALUES('O46866','C00004','2003-04-20','Delhi','S00001','F','Y','2007-05-02','Cancelled');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales_order VALUES('O19008','C00005','2024-04-20','Delhi','S00004','F','N','1096-07-26','In Process');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into sales_order VALUES('O19001','C00001','2002-04-02','Delhi','S00002','P','N','2020-07-02','In Process');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into sales_order VALUES('O19001','C00002','2002-04-02','Delhi','S00002','P','N','2002-07-27','Cancelled');
+ERROR 1062 (23000): Duplicate entry 'O19001' for key 'sales_order.PRIMARY'
+mysql> insert into sales_order VALUES('O19002','C00002','2002-04-02','Delhi','S00002','P','N','2002-07-27','Cancelled');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`third_db`.`sales_order`, CONSTRAINT `sales_order_ibfk_1` FOREIGN KEY (`CLIENT_NO`) REFERENCES `client_master` (`CLIENT_NO`))
+mysql> insert into sales_order VALUES('O19002','C00002','2025-06-02','Delhi','S00002','P','N','2027-07-02','Cancelled');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`third_db`.`sales_order`, CONSTRAINT `sales_order_ibfk_1` FOREIGN KEY (`CLIENT_NO`) REFERENCES `client_master` (`CLIENT_NO`))
+mysql> select * from sales_order;
++---------+-----------+------------+----------+------------+----------+--------+------------+-------------+
+| ORDERNO | CLIENT_NO | ORDERDATE  | DELYADDR | SALESMANNO | DELYTYPE | BILLYN | DELYDATE   | ORDERSTATUS |
++---------+-----------+------------+----------+------------+----------+--------+------------+-------------+
+| O19001  | C00001    | 2002-04-02 | Delhi    | S00002     | P        | N      | 2020-07-02 | In Process  |
+| O19003  | C00001    | 2003-04-02 | Delhi    | S00001     | F        | Y      | 2007-04-02 | Fullfield   |
+| O19008  | C00005    | 2024-04-20 | Delhi    | S00004     | F        | N      | 1096-07-26 | In Process  |
+| O46866  | C00004    | 2003-04-20 | Delhi    | S00001     | F        | Y      | 2007-05-02 | Cancelled   |
++---------+-----------+------------+----------+------------+----------+--------+------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into sales_order VALUES('O19002','C00002','2025-06-02','Delhi','S00002','P','N','2027-07-02','Cancelled');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`third_db`.`sales_order`, CONSTRAINT `sales_order_ibfk_1` FOREIGN KEY (`CLIENT_NO`) REFERENCES `client_master` (`CLIENT_NO`))
+mysql> describe sales_order_details;
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| ORDERNO     | varchar(6) | YES  | MUL | NULL    |       |
+| PRODUCTNO   | varchar(6) | YES  | MUL | NULL    |       |
+| QTYORDERED  | int        | YES  |     | NULL    |       |
+| QTYDISP     | int        | YES  |     | NULL    |       |
+| PRODUCTRATE | int        | YES  |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into sales_order_details('O19001','P00001',4,4,525);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''O19001','P00001',4,4,525)' at line 1
+mysql> insert into sales_order_details VALUES('O19001','P00001',4,4,525);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into sales_order_details VALUES('O19001','P07965',2,1,8400);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales_order_details VALUES('O19001','P07885',2,1,5250);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales_order_details VALUES('O19002','P00001',10,0,525);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`third_db`.`sales_order_details`, CONSTRAINT `sales_order_details_ibfk_1` FOREIGN KEY (`ORDERNO`) REFERENCES `sales_order` (`ORDERNO`))
+mysql> insert into sales_order_details VALUES('O46865','P07868',3,3,3150);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`third_db`.`sales_order_details`, CONSTRAINT `sales_order_details_ibfk_1` FOREIGN KEY (`ORDERNO`) REFERENCES `sales_order` (`ORDERNO`))
+mysql> insert into sales_order_details VALUES('O46865','P07885',3,1,5280);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`third_db`.`sales_order_details`, CONSTRAINT `sales_order_details_ibfk_1` FOREIGN KEY (`ORDERNO`) REFERENCES `sales_order` (`ORDERNO`))
+mysql> insert into sales_order_details VALUES('O19003','P03453',2,2,1050);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales_order_details VALUES('O19003','P06734',1,1,12000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales_order_details VALUES('O46866','P07965',1,0,8400);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales_order_details VALUES('O46866','P07965',1,0,1050);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales_order_details VALUES('O19008','P00001',10,5,525);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales_order_details VALUES('O19008','P07975',5,3,1050);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from sales_order_details;
++---------+-----------+------------+---------+-------------+
+| ORDERNO | PRODUCTNO | QTYORDERED | QTYDISP | PRODUCTRATE |
++---------+-----------+------------+---------+-------------+
+| O19001  | P00001    |          4 |       4 |         525 |
+| O19001  | P07965    |          2 |       1 |        8400 |
+| O19001  | P07885    |          2 |       1 |        5250 |
+| O19003  | P03453    |          2 |       2 |        1050 |
+| O19003  | P06734    |          1 |       1 |       12000 |
+| O46866  | P07965    |          1 |       0 |        8400 |
+| O46866  | P07965    |          1 |       0 |        1050 |
+| O19008  | P00001    |         10 |       5 |         525 |
+| O19008  | P07975    |          5 |       3 |        1050 |
++---------+-----------+------------+---------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+___________________________________________________________________________________________________________________
+3. Generate the SQL statements to perform the following computations on
+table data in Python IDLE:
+
+a.
+____________________________________________________
+import mysql.connector
+
+
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='third_DB',
+                                         user='root',
+                                         password='Accor@123')
+    
+    sql='select Name from client_master Where Name like "A%"'
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    print(records)
+    
+except mysql.connector.Error as error:
+    print("Failed to insert record into client_master table {}".format(error))
+
+finally:
+    if (connection.is_connected()):
+        connection.close()
+        print("MySQL connection is closed")
+
+
+b.
+________________________________________________________________________________________________
+b. List the clients who stay in a city whose first letter is ‘M’.
+import mysql.connector
+
+
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='third_DB',
+                                         user='root',
+                                         password='Accor@123')
+    
+    sql='select City from client_master Where City like "M%"'
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    print(records)
+    
+except mysql.connector.Error as error:
+    print("Failed to insert record into client_master table {}".format(error))
+
+finally:
+    if (connection.is_connected()):
+        connection.close()
+        print("MySQL connection is closed")
+
+_________________________________________________________________________________
+
+c.
+import mysql.connector
+
+
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='third_DB',
+                                         user='root',
+                                         password='Accor@123')
+    
+    sql='select Name from client_master Where City = "Banglore" or city = "Mangalore"'
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    print(records)
+    
+except mysql.connector.Error as error:
+    print("Failed to insert record into client_master table {}".format(error))
+
+finally:
+    if (connection.is_connected()):
+        connection.close()
+        print("MySQL connection is closed")
+
+__________________________________________________________________________________________
+d.
+
+#List all clients whose BalDue is greater than value 10000.
+
+import mysql.connector
+
+
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='third_DB',
+                                         user='root',
+                                         password='Accor@123')
+    
+    sql='select client_no from client_master Where BalDue>10000 '
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    print(records)
+    
+except mysql.connector.Error as error:
+    print("Failed to insert record into client_master table {}".format(error))
+
+finally:
+    if (connection.is_connected()):
+        connection.close()
+        print("MySQL connection is closed")
+
+_____________________________________________________________________________________________
+
+e.
+import mysql.connector
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='third_DB',
+                                         user='root',
+                                         password='Accor@123')
+    
+    sql='select *from SALES_ORDER Where DELYDATE like "_____07%"'
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    print(records)
+    
+except mysql.connector.Error as error:
+    print("Failed to insert record into client_master table {}".format(error))
+
+finally:
+    if (connection.is_connected()):
+        connection.close()
+        print("MySQL connection is closed")
+___________________________________________________________________________________________________
+
+f.  
+
+
+
+#List the names, city and state of clients who are not in the state of ‘Maharashtra’.
+import mysql.connector
+
+
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='third_DB',
+                                         user='root',
+                                         password='Accor@123')
+    
+    sql='select * from client_master Where state != "Maharastra"'
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    print([records])
+    
+except mysql.connector.Error as error:
+    print("Failed to insert record into client_master table {}".format(error))
+
+finally:
+    if (connection.is_connected()):
+        connection.close()
+        print("MySQL connection is closed")
+
+
+____________________________________________________________________________________________________
+
+Question04
+a.
+
+Answer:
+import mysql.connector
+
+
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='third_DB',
+                                         user='root',
+                                         password='Accor@123')
+    
+
+    sql='''select product_master.productno,sum(product_master.sellprice) 
+    from product_master,sales_order_details 
+    where product_master.productno = sales_order_details.productno 
+    group by product_master.productno'''
+    # sql='select sum(QTYONHAND) from product_master '
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    print(records)
+    
+except mysql.connector.Error as error:
+    print("Failed to insert record into client_master table {}".format(error))
+
+finally:
+    if (connection.is_connected()):
+        connection.close()
+        print("MySQL connection is closed")
+
+_____________________________________________________________________________________
+4.b
+
+import mysql.connector
+
+
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='third_DB',
+                                         user='root',
+                                         password='Accor@123')
+    
+    sql='''Select client_master. client_no, avg (sales_order_details. qtydisp)
+    from client_master, sales_order_details,sales_order
+    Where client_master. client_no = sales_order.client_no
+    and sales_order.orderno = sales_order_details.orderno
+    Group By client_master. client_no
+    Having max(sales_order_details. QTYORDERED * sales_order_details.productrate)>15000
+    '''
+    
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    print(records)
+    
+except mysql.connector.Error as error:
+    print("Failed to insert record into client_master table {}".format(error))
+
+finally:
+    if (connection.is_connected()):
+        connection.close()
+        print("MySQL connection is closed")

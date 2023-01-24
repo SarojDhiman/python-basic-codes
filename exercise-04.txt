@@ -1,0 +1,69 @@
+saroj dhiman          exercise 05        date:22.09.2022
+Q1: Create a string made of the first, middle and last character
+string = "hello world"
+print(string[0]+string[1]+string[5]+string[9]+string[10])
+
+Q 2: Write a program to create a new string made of the middle three characters of aninput string.
+string = input("enter the string:")
+newstring = string[1]+string[2]+string[3]
+print(newstring)
+
+Q3: Given two strings, s1 and s2. Write a program to create a new string s3 by
+ appending s2 in the middle of s1.
+s1 = "helo"
+s2 = "python"
+newstring = s1[0]+s1[1]+s2+s1[2]+s1[3]
+print(newstring)
+
+Q4: Write a program to add item 7000 after 6000 in the following Python List
+list1 = [10, 20, [300, 400, [5000, 6000], 500], 30, 40]
+
+list1[2][2].append(7000)
+print(list1)
+
+Q 5: The given tuple is a nested tuple. write a Python program to print the value 20.
+Given:
+tuple1 = ("Orange", [10, 20, 30], (5, 15, 25))
+print(tuple1[1][1])
+
+Q 6: Create a tuple with single item 50
+m = int(input("enter the string"))
+print(m,)
+
+Q7: Write a program to unpack the following tuple into four variables and display each
+variable.
+Given:
+tuple1 = (10, 20, 30, 40)
+a,b,c,d=tuple1
+print(a)
+
+
+Q 8: Swap two tuples in Python
+Given:
+t1 =(11, 22)
+t2 = (99, 88)
+print("t1=",t2,"t2=",t1)
+
+Q 9: Write a program to copy elements 44 and 55 from the following tuple into a new tuple.
+ Given:
+tuple1 = (11, 22, 33, 44, 55, 66)
+newtuple=(tuple1[3],tuple1[4])
+print(newtuple)
+
+Q 10: Given is a nested tuple. Write a program to modify the first item (22) of a list
+inside a following tuple to 222
+Given:
+tuple1 = (11, [22, 33], 44, 55)
+list1=(list(tuple1))
+print(list1)
+list1[1][0]=222
+print(list1)
+
+Q11: Given a nested list. Write a python program to extend it with adding sub list []
+in a such a way that it will look like the following list
+list = ["a", "b", ["c", ["d", "e", ["f", "g"],"k"], "l"], "m", "n"]
+
+sublist = ["h", "i", "j"]
+list.extend(sublist)
+print(list)
+

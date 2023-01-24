@@ -1,0 +1,89 @@
+Lab Exercise – 8 (File Handling)              date:29/09/2022
+
+My text file
+File is a named location on disk to store related information
+While a program is running, its data is in memory.
+When the program ends, or the computer shuts down, data in disappears.
+To store data permanently, you have to put it in a File.
+file is used to permanently store data in a non-volatile memory.
+
+1 Opening a file creates a file object.
+1 Opening a file creates a file object.
+---------------------------------------------------------------------------
+Q1. Write a Python program to read an entire text file.
+
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\exercise08\newfile.txt",'r')
+x=file.read()
+print(x)
+--------------------------------------------------------------------------
+Q2.  Write a Python program to read first n lines of a file.
+
+import func01
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\exercise08\newfile.txt","r")
+lines=func01.countlines_file(file)
+print("the number of lines are:",lines)
+-------------------------------------------------------------------------------
+Q3. Write a Python program to append text to a file and display the text.
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\exercise08\newfile.txt",'a')
+str1 = "1 Opening a file creates a file object."
+file.write("\n"+str1)
+#file.seek(0)
+file.write("\n"+str1)
+file.close()
+------------------------------------------------------------------------------
+Q4. Write a Python program to read a file line by line and store it into a list.
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\exercise08\newfile.txt",'r')
+x=file.readlines()
+print(x)
+y = len(list(x))
+print(y)
+print(x[0])
+print(x[1])
+print(x[2])
+print(x[3])
+print(x[4])
+
+---------------------------------------------------------------------------------
+Q5. Write a program to print each line of a file in reverse order.
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\exercise08\newfile.txt",'r')
+x=file.readlines()
+print(x)
+print(x[-1:-5:-1])
+print(x.reverse[0])
+---------------------------------------------------------------------------------
+Q6. Write a Python program to write a list content to a file.
+list1=["saroj now you understand concept"]
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\exercise08\newfile.txt",'r')
+list2=file.readlines()
+print(list2)
+list=(list1+list2)
+print("_-------------------------")
+# print(list)
+# print(list2[-1:-5:-1])
+# print("==========================================")
+# list.reverse
+# print(list2[-1::-1])
+
+list.reverse()
+print(list)
+for i in list:
+    print(i[-1::-1],end="")
+
+-----------------------------------------------------------------------------------
+
+Q7. Write a program to compute the number of characters, words and lines in a file.
+import func01
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\exercise08\newfile.txt",'r')
+x=func01.countlines_file(file)
+print(x)
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\exercise08\newfile.txt",'r')
+y=func01.countChars_file(file)
+print(y)
+# z=len((.split()))
+file.seek(0)
+n=0
+for i in file:
+    words = i.split()
+    n = n + len(words)
+print(n)
+------------------------------------------------------------------------------------

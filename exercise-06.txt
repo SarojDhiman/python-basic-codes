@@ -1,0 +1,86 @@
+PYTHON LAB 06 EXERCISE               SAROJ DHIMAN
+
+
+
+Q1: Write a Program to make a simple calculator that can add, subtract, multiply and
+#divide using functions
+
+def func1(x,y):
+    """This function is used for addition of 2 numbers."""
+    result=x+y
+    print("The result of addition =",result)
+
+def func2(x,y):
+    """This function is used for multiplication of 2 numbers."""
+    result=x*y
+    print("The result of multiplication =",result)
+
+def func3(x,y):
+    """This function is used for division  of 2 numbers."""
+    result=x/y
+    print("The result of division =",result)
+
+def func4(x,y):
+    """This function is used for subtraction of 2 numbers."""
+    result=x-y
+    print("The result of subtraction =",result)
+
+x = int(input("Enter the value:"))
+y = int(input("Enter the value:"))
+
+# func1(x,y)
+#func2(x,y)
+func3(x,y)
+# func4(x,y)
+
+
+Q2 : Write a Program to display the Fibonacci sequence up to n-th term where n is provided by
+#the user
+def recur_factorial(x):
+    if x <= 1:
+        return x
+    else:
+        return(x*recur_factorial(x-1))
+
+x = int(input("value"))
+
+print(recur_factorial(x))
+
+Q3: Write a Python Program To Display Powers of 2(2**power) Using Anonymous Function
+#(lambda function). Take number of terms from user
+
+
+
+L1=[int(i) for i in input("enter value").split(",") ]
+result1 = list(map(lambda L1:2**L1,L1))
+print(result1)
+
+Q4: Write a Python Program to find numbers divisible by thirteen from a list using anonymous
+#function
+L1=[int(i) for i in input("enter value").split(",") ]
+result1 = list(map(lambda L1:L1/13,L1))
+print(result1)
+
+
+Q5: Write a Python program to display the Fibonacci sequence up to n-th term by using recursive
+functions
+
+def rec_fac(x):
+    if x<=1:
+        return x
+    else:
+        return(x*rec_fac(x-1))
+x= int(input("value"))
+print(rec_fac(x)
+
+
+Q6: Write a Python program to find the sum of natural numbers up to n using recursive function
+def recur_sum(x):
+    if x <= 1:
+        return x
+    else:
+        return(x + recur_sum(x-1))
+
+x = int(input("value"))
+
+print(recur_sum(x))
