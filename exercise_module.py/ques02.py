@@ -1,0 +1,10 @@
+from mymodule import countChars_file,countlines_file,testname_file
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\08_class.py\exercise_module.py\mymod.txt",mode='r')
+lines=countlines_file(file)
+print("the number of lines are=",lines)
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\08_class.py\exercise_module.py\mymod.txt",mode='r')
+counts=countChars_file(file)
+print("the number of charter are=",counts)
+file = open(r"C:\Users\Saroj Dhiman\OneDrive\Documents\08_class.py\exercise_module.py\mymod.txt",mode='r')
+testname_lines,testchar=testname_file(file)
+print(f"the number of lines are={testname_lines} and the character are{testchar}")
